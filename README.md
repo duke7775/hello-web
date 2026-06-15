@@ -1,2 +1,2 @@
 # hello-web
-This respository is used for Web Application
+This respository is used for Web Application.

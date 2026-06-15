@@ -1,0 +1,23 @@
+body{
+    background:#eee;
+}
+
+header{
+    background:blue;
+    color:white;
+    text-align:center;
+}
+
+section{
+    background:white;
+    margin:15px;
+    padding:20px;
+    border-radius:5px;
+    box-shadow:0 0 5px gray;
+}
+
+footer{
+    background:blue;
+    color:white;
+    text-align:center;
+}

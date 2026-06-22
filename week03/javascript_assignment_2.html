@@ -1,0 +1,41 @@
+<html> 
+    <body> 
+    <h3>Today Fruits</h3> 
+    <ul id="fruit-list"></ul> 
+
+    <hr/> 
+    <h3>Today Vegetables</h3> 
+
+    <ul id="veg-list"></ul> 
+
+    <script> 
+    let fruits = ["Apple", "Banana","Orange", "Mango", "Strawberry"];
+    let vegetables = ["Carrot", "Broccoli", "Spinach", "Tomato", "Cucumber"];
+
+    let fruitlist = document.createElement("fruit-list");
+    let veglist = document.createElement("veg-list");
+
+    for (let i = 0; i < fruits.length; i++) {
+        let li = document.createElement("li");
+        li.innerText = fruits[i];
+        fruitlist.appendChild(li);
+    }
+    document.getElementById("fruit-list").appendChild(fruitlist);
+
+    for (let i = 0; i < vegetables.length; i++) {
+        let li = document.createElement("li");
+        li.innerText = vegetables[i];
+        veglist.appendChild(li);
+    }
+    document.getElementById("veg-list").appendChild(veglist);
+
+    
+
+
+ //Add your code here 
+
+    </script> 
+
+    </body> 
+
+    </html> 

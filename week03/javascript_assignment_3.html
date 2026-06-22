@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Web Page</title>
+    </head>
+    <body>
+
+        </body>
+    
+    <script>
+        const people = [ 
+  "Alice Anderson", 
+  "Aaron Adams", 
+  "Bella Brown", 
+  "Brian Black", 
+  "Cathy Carter", 
+  "Charles Cooper", 
+  "Diana Davis", 
+  "Daniel Drake", 
+  "Ella Evans", 
+  "Ethan Edwards", 
+  "Fiona Fisher", 
+  "Frank Foster", 
+  "Grace Green", 
+  "Gavin Gray", 
+  "Hannah Harris", 
+  "Henry Hill", 
+  "Isabella Ingram", 
+  "Ian Irving", 
+  "Jack Johnson", 
+  "Julia James" 
+]; 
+        const newArray =people.filter((element) => {
+            return element.charAt(0) === "B";
+        });
+        console.log(newArray);
+
+
+        function filter(firstLetter) {
+            let result = [];
+
+            for (let i = 0; i <people.length; i++) {
+                if (people[i].charAt(0) === firstLetter) {
+                    result.push(people[i]);
+                }
+            }
+            return result;
+        }
+
+    </script>
+
+
+
+</html>

@@ -1,0 +1,20 @@
+<html> 
+
+  <body> 
+     <ul id="list1"></ul> 
+
+    <script> 
+    for(let i = 0; i < 20; i++) {
+        if (i == 5 || i == 10 || i == 15) {
+            continue;
+        }
+        let li = document.createElement("li");
+        li.innerText = i;
+        document.getElementById("list1").appendChild(li);
+    }
+
+    </script> 
+
+  </body> 
+
+</html>

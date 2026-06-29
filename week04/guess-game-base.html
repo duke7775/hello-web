@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+  <head>
+    <title>Guess Game</title>
+    <!-- You may change the CSS location based on your file structure-->
+    <link rel="stylesheet" href="guesss-game.css" />
+  
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:xd_Signature msdt:dt="string"></mso:xd_Signature>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">SharePoint App</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:Order msdt:dt="string">1500.00000000000</mso:Order>
+<mso:xd_ProgID msdt:dt="string"></mso:xd_ProgID>
+<mso:_ExtendedDescription msdt:dt="string"></mso:_ExtendedDescription>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">SharePoint App</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:ComplianceAssetId msdt:dt="string"></mso:ComplianceAssetId>
+<mso:TemplateUrl msdt:dt="string"></mso:TemplateUrl>
+<mso:ReferenceId msdt:dt="string"></mso:ReferenceId>
+<mso:ContentTypeId msdt:dt="string">0x0101008F7E6A595F677440AEB4255EBF4A3A1B</mso:ContentTypeId>
+<mso:TriggerFlowInfo msdt:dt="string"></mso:TriggerFlowInfo>
+<mso:_SourceUrl msdt:dt="string"></mso:_SourceUrl>
+<mso:_SharedFileIndex msdt:dt="string"></mso:_SharedFileIndex>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+  <body>
+
+    <div class="main-container">
+      <h2>Guess Game</h2>
+      <div style="margin-bottom: 10px">
+        Guess a number between 1 - 20, you have 5 chances.
+      </div>
+      <div class="input">
+        <input type="text" id="guess" name="guess" />
+        <button id="guessBtn" onclick="checkGuess()">Guess!</button>
+        <button id="restart" onclick="restartGame()" style="display: none">Restart</button>
+      </div>
+      <hr />
+      <div id="attempt" style="margin-bottom: 10px">Attempt 0/5</div>
+      <div id="result"></div>
+    </div>
+  </body>
+</html>
+<script src="guess-game.js"></script>
+

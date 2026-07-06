@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Item Display</title>
+    <script src="item-list.js"></script>
+  </head>
+  <body>
+
+    <div class="main-container">
+      <div>
+        <h2>Item Display</h2>
+      </div>
+      <select id="item-list" onchange="testchange(event)"></select>
+    <script>
+      function testchange(event) {
+        console.log(" ==>event value ", event.target.value);
+
+      }
+      
+      let optional = "";
+      for(let i = 0; i < items.length; i++) {
+        optional += `<option value="${items[i].id}">${items[i].name}</option>`;
+      }
+      console.log(optional);
+      document.getElementById("item-list").innerHTML = optional;
+      console.log(items);
+    </script>
+      
+      <div>
+      </div>
+      <hr />
+      <div class="prop-row">
+        <div class="prop-name">ID</div>
+        <div id="item-id"></div>
+      </div>
+      <div class="prop-row">
+        <div class="prop-name">Name</div>
+        <div id="item-name"></div>
+      </div>
+      <div class="prop-row">
+        <div class="prop-name">Category</div>
+        <div id="item-category"></div>
+      </div>
+      <div class="prop-row">
+        <div class="prop-name">Inventory Amt.</div>
+        <div id="item-inventory"></div>
+      </div>
+      <div class="prop-row">
+        <div class="prop-name">List price</div>
+        <div id="item-price"></div>
+      </div>
+    </div>
+  </body>
+</html>

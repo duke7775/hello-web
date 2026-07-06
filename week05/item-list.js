@@ -12,7 +12,8 @@ const items = [
     category: "IT",
     inventory: 150,
     price: 490,
-  },
+  }, 
+  
   {
     id: 3,
     name: "Monitor",

@@ -1,3 +1,6 @@
+// src/app/api/item/[item_id]/route.js
+
+import { verifyJWT } from "@/lib/auth";
 import { getClientPromise } from "@/lib/mongodb";
 
 import {
@@ -20,6 +23,12 @@ export async function OPTIONS() {
 }
 
 export async function GET(request, { params }) {
+  const user = verifyJWT(request);
+
+  if (!user) {
+    return errorResponse("Unauthorized Request", 401);
+  }
+
   const { item_id } = await params;
 
   try {
@@ -31,6 +40,16 @@ export async function GET(request, { params }) {
       .findOne({ _id: new ObjectId(item_id) });
 
     if (item) {
+      // Audit Log
+      await db.collection("audit_log").insertOne({
+        userId: user.id,
+        username: user.username,
+        action: "VIEW_ITEM",
+        itemId: item._id,
+        itemName: item.name,
+        timestamp: new Date(),
+      });
+
       return successResponse(
         {
           item,
@@ -47,11 +66,26 @@ export async function GET(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  const user = verifyJWT(request);
+
+  if (!user) {
+    return errorResponse("Unauthorized Request", 401);
+  }
+
   const { item_id } = await params;
 
   try {
     const client = await getClientPromise();
     const db = client.db(process.env.DB_NAME);
+
+    // Get item before deleting
+    const item = await db
+      .collection("item")
+      .findOne({ _id: new ObjectId(item_id) });
+
+    if (!item) {
+      return errorResponse("Item not found", 404);
+    }
 
     const updateResult = await db
       .collection("item")
@@ -64,6 +98,16 @@ export async function DELETE(request, { params }) {
       return errorResponse("Item not found", 404);
     }
 
+    // Audit Log
+    await db.collection("audit_log").insertOne({
+      userId: user.id,
+      username: user.username,
+      action: "DELETE",
+      itemId: item._id,
+      itemName: item.name,
+      timestamp: new Date(),
+    });
+
     return successResponse(
       { message: "Soft Delete Success" },
       200,
@@ -75,6 +119,12 @@ export async function DELETE(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
+  const user = verifyJWT(request);
+
+  if (!user) {
+    return errorResponse("Unauthorized Request", 401);
+  }
+
   const { item_id } = await params;
 
   console.log("==>itemd id: ", item_id);
@@ -107,6 +157,16 @@ export async function PUT(request, { params }) {
       const updateOk = Number(updatedResult.modifiedCount) > 0;
 
       if (updateOk) {
+        // Audit Log
+        await db.collection("audit_log").insertOne({
+          userId: user.id,
+          username: user.username,
+          action: "UPDATE",
+          itemId: storedItem._id,
+          itemName: storedItem.name,
+          timestamp: new Date(),
+        });
+
         return successResponse(
           { message: "Item update success" },
           201,

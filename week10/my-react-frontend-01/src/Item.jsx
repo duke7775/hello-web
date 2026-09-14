@@ -76,6 +76,7 @@ export default function Item() {
   const loadItems = async () => {
     const fetchResult = await fetch(`${API_URL}/api/item`, {
       method: "GET",
+      credentials: "include",
     });
 
     if (fetchResult.ok) {
@@ -112,6 +113,7 @@ export default function Item() {
     const addItemResult = await fetch(`${API_URL}/api/item`, {
       body: JSON.stringify(newItem),
       method: "POST",
+      credentials: "include",
     });
 
     if (addItemResult.ok) {
@@ -124,6 +126,7 @@ export default function Item() {
   const onItemDelete = async (rowId) => {
     const deleteResult = await fetch(`${API_URL}/api/item/${rowId}`, {
       method: "DELETE",
+      credentials: "include",
     });
 
     if (deleteResult.ok) {

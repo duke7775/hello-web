@@ -4,8 +4,9 @@ import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-import { Outlet, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./context/UseContext";
 
@@ -13,7 +14,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Home() {
   const navigate = useNavigate();
-
   const { user, isLoggedIn, isInitializing } = useContext(UserContext);
 
   useEffect(() => {
@@ -40,6 +40,17 @@ export default function Home() {
           >
             Item
           </Button>
+
+          {user?.id == "-1" && (
+            <Button
+              color="inherit"
+              onClick={() => {
+                navigate("/user");
+              }}
+            >
+              User
+            </Button>
+          )}
 
           <Button
             color="inherit"

@@ -1,3 +1,4 @@
+import { verifyJWT } from "@/lib/auth";
 import { getClientPromise } from "@/lib/mongodb";
 
 import {
@@ -7,6 +8,12 @@ import {
 } from "@/lib/utils";
 
 export async function GET(request) {
+  const user = verifyJWT(request);
+
+  if (!user) {
+    return errorResponse("Unauthorized Request", 401);
+  }
+
   try {
     const client = await getClientPromise();
     const db = client.db(process.env.DB_NAME);
@@ -16,6 +23,14 @@ export async function GET(request) {
       .find({ status: { $ne: "DELETED" } })
       .toArray();
 
+    // Audit Log
+    await db.collection("audit_log").insertOne({
+      userId: user.id,
+      username: user.username,
+      action: "VIEW_ITEMS",
+      timestamp: new Date(),
+    });
+
     return successResponse({ itemList }, 201);
   } catch (error) {
     printExceptionLog("GET Items", error);
@@ -24,6 +39,12 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+  const user = verifyJWT(request);
+
+  if (!user) {
+    return errorResponse("Unauthorized Request", 401);
+  }
+
   try {
     const data = await request.json();
 
@@ -41,6 +62,16 @@ export async function POST(request) {
       price: price,
       amount: amount,
       status: "ACTIVE",
+    });
+
+    // Audit Log
+    await db.collection("audit_log").insertOne({
+      userId: user.id,
+      username: user.username,
+      action: "CREATE",
+      itemId: insertResult.insertedId,
+      itemName: name,
+      timestamp: new Date(),
     });
 
     return successResponse(
